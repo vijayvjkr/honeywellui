@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 function Honeywell() {
-  const [input, setInput] = useState('');
-
+  const [input1, setInput] = useState('');
+  const [input2, setInput2] = useState('');
 
   const [encryptedData, setEncryptedData] = useState(''); 
 
@@ -15,12 +15,12 @@ function Honeywell() {
     e.preventDefault();
     
     try {
-      const response = await fetch('https://your-backend-api-url.com/endpoint', {
+      const response = await fetch('http://localhost:8080/ED/encrypt/${input1}', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ input }),
+        body: JSON.stringify({ input1 }),
       });
       
       const data = await response.json();
@@ -40,12 +40,12 @@ function Honeywell() {
     e.preventDefault();
     
     try {
-      const response = await fetch('https://your-backend-api-url.com/endpoint', {
+      const response = await fetch('http://localhost:8080/ED/decrypt/${input2}', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ input }),
+        body: JSON.stringify({ input2 }),
       });
       
       const data = await response.json();
@@ -84,7 +84,7 @@ function Honeywell() {
       <form onSubmit={handleSubmitEncrypt}>
         <input
           type="text"
-          value={input}
+          value={input1}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter your text to encrypt"
         />
@@ -108,8 +108,8 @@ function Honeywell() {
       <form onSubmit={handleSubmitDecrypt}>
         <input
           type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          value={input2}
+          onChange={(e) => setInput2(e.target.value)}
           placeholder="Enter your text to decrypt"
         />
         <button type="submitDecrypt">Submit</button>
